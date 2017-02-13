@@ -1,29 +1,5 @@
-import axios from "axios";
-
-export function loadGameDayData(day, year, callback, dispatch) {
-    console.log("_APIUtils: loadGameDayData");
-    let url = "http://www.openligadb.de/api/getmatchdata/bl1";
-    let currentDay = null;
-    let currentSeason = null;
-    if (day !== undefined && day !== null && year !== undefined && year !== null) {
-        url += "/" + year + "/" + day;
-        currentSeason = year + "/" + (parseInt(year) + 1);
-        console.log(currentSeason);
-        currentDay = day;
-    }
-    console.log(url);
-    axios.get(
-        url
-    )
-    .then((res) => {
-        dispatch(callback(res.data, currentDay, currentSeason));
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-}
-
-/*
+import "isomorphic-fetch";
+import jwt_decode from "jwt-decode";
 
 export function checkStatus(response) {
   if (!response.ok) {
@@ -50,8 +26,6 @@ export function parseJSON(response) {
  * @param onRequestFailure The callback function to create request failure action.
  *                 The function expects error as its argument.
  */
-
-/*
 export function callApi(
   url,
   config,
@@ -105,7 +79,7 @@ export function loadIdToken() {
 
 export function decodeUserProfile(idToken) {
   try {
-    //return jwt_decode(idToken);
+    return jwt_decode(idToken);
   } catch (err) {
     return null;
   }
@@ -114,7 +88,7 @@ export function decodeUserProfile(idToken) {
 export function loadUserProfile() {
   try {
     const idToken = localStorage.getItem(ID_TOKEN);
-    //const userProfile = jwt_decode(idToken);
+    const userProfile = jwt_decode(idToken);
     const now = new Date().getTime() / 1000; // Date().getTime() returns milliseconds.
     // So divide by 1000 to get seconds
     if (now > userProfile.exp) {
@@ -127,5 +101,3 @@ export function loadUserProfile() {
     return null;
   }
 }
-
-*/

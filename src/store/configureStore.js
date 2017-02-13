@@ -1,19 +1,13 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
 import createLogger from "redux-logger";
-import auth from "../reducers/auth";
-import alerts from "../reducers/alerts";
-import { selectedUsersPage, usersByPage } from "../reducers/users";
-import { selectedReposPage, reposByPage } from "../reducers/repos";
+import data from "../reducers/data";
+import ui from "../reducers/ui";
 
 const logger = createLogger();
 const rootReducer = combineReducers({
-  auth,
-  alerts,
-  selectedUsersPage,
-  usersByPage,
-  selectedReposPage,
-  reposByPage
+  data,
+  ui
 });
 
 const initialState = {};
